@@ -9,7 +9,11 @@ void test(int *n);
 int main(void)   
 {
     int x = 4;
-    test(&x);
+    int * ptr = &x;
+    printf("%p\n",&ptr);
+    printf("%p\n",ptr);
+    printf("%p",&x);
+    //test(&x);
     return 0;
 }
 

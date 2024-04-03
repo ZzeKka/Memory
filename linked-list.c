@@ -14,6 +14,7 @@ typedef struct node
 }node; 
 
 void add_node_begin(node ** list, const char * word);
+void add_node_end(node ** list, const char * word);
 void print_linked_list(node * list);
 
 
@@ -25,9 +26,10 @@ int main(void)
 {
     srand(time(0));
     node * linked_list = NULL;
-    printf("%p\n",&linked_list);
     add_node_begin(&linked_list,"ola");
     add_node_begin(&linked_list,"adeus");
+    add_node_end(&linked_list,"voltei");
+    print_linked_list(linked_list);
     return 0;
 }
 
@@ -35,8 +37,6 @@ int main(void)
 
 void add_node_begin(node ** list, const char * word)
 {
-    printf("%p\n",*list);
-    printf("%p\n",list);
     size_t length = strlen(word);
     node * new_node = malloc(sizeof(node) + strlen(word) + 1);
     if(new_node == NULL)
@@ -50,8 +50,44 @@ void add_node_begin(node ** list, const char * word)
     *list = new_node;
 }  
 
+void add_node_end(node ** list, const char * word)
+{
+    size_t length = strlen(word);
+    node * new_node = malloc(sizeof(node) + strlen(word) + 1);
+    if(new_node == NULL)
+    {
+        printf("%p\n", ( void * )new_node);
+        free(new_node);
+        return;
+    }
+    strcpy(new_node->word, word);
+    node * n = *list;
+    while (n->next != NULL)
+    {
+        n = n->next;
+    }
+    n->next = new_node;
+    new_node->next = NULL;
+}  
+
+
 void print_linked_list(node * list)
 {
+    if(list == NULL)
+    {
+        printf("%s\n","List is empty!");
+    } 
+    else
+    {
+        printf("%s","LinkedList");
+        node * n = list;
+        do
+        {
+            printf("->|%s|", n->word);
+            n=n->next;
+        }
+        while (n != NULL);
+    }
 }
 
 
