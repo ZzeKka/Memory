@@ -15,6 +15,7 @@ typedef struct node
 
 void add_node_begin(node ** list, const char * word);
 void add_node_end(node ** list, const char * word);
+void clear_list(node ** list);
 void print_linked_list(node * list);
 
 
@@ -29,6 +30,8 @@ int main(void)
     add_node_begin(&linked_list,"ola");
     add_node_begin(&linked_list,"adeus");
     add_node_end(&linked_list,"voltei");
+    print_linked_list(linked_list);
+    clear_list(&linked_list);
     print_linked_list(linked_list);
     return 0;
 }
@@ -71,6 +74,21 @@ void add_node_end(node ** list, const char * word)
 }  
 
 
+void clear_list(node ** list)
+{
+    if((*list)->next == NULL)
+    {   
+        free(*list)
+        (*list) == NULL
+        return;
+    }
+    free(*list);
+    clear_list(&(*list)->next); 
+}
+
+
+
+
 void print_linked_list(node * list)
 {
     if(list == NULL)
@@ -87,6 +105,7 @@ void print_linked_list(node * list)
             n=n->next;
         }
         while (n != NULL);
+        printf("%s\n","");
     }
 }
 
