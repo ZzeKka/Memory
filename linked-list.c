@@ -4,9 +4,6 @@
 #include <time.h>
 #include <stdint.h> 
 
-#define BUFFER_SIZE 100
-
-
 typedef struct node
 {
     struct node * next;
@@ -17,6 +14,7 @@ void add_node_begin(node ** list, const char * word);
 void add_node_end(node ** list, const char * word);
 void clear_list(node ** list);
 void print_linked_list(node * list);
+int list_length(node * list);
 
 
 // MAIN
@@ -31,8 +29,10 @@ int main(void)
     add_node_begin(&linked_list,"adeus");
     add_node_end(&linked_list,"voltei");
     print_linked_list(linked_list);
+    printf("list len is: %d\n", list_length(linked_list));
     clear_list(&linked_list);
     print_linked_list(linked_list);
+    printf("list len is: %d\n", list_length(linked_list));
     return 0;
 }
 
@@ -76,17 +76,15 @@ void add_node_end(node ** list, const char * word)
 
 void clear_list(node ** list)
 {
-    if((*list)->next == NULL)
+    if((*list) == NULL)
     {   
-        free(*list)
-        (*list) == NULL
         return;
     }
-    free(*list);
+
     clear_list(&(*list)->next); 
+    free(*list);
+    *list = NULL;
 }
-
-
 
 
 void print_linked_list(node * list)
@@ -109,4 +107,15 @@ void print_linked_list(node * list)
     }
 }
 
+int list_length(node * list)
+{
+    int count = 0;
+    node * current = list;
+    while (current != NULL)
+    {
+        count++;
+        current = current->next;
+    }   
+    return count;
+}
 
